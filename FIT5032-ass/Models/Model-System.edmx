@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="cus_Id" />
+          </Key>
+          <Property Name="cus_Id" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="phone" Type="numeric" Precision="11" Scale="0" />
+          <Property Name="address" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="item_Id" />
+          </Key>
+          <Property Name="item_Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="staff_Id" Type="int" Nullable="false" />
+          <Property Name="price" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="item_Id" />
+            <PropertyRef Name="cus_Id" />
+          </Key>
+          <Property Name="item_Id" Type="int" Nullable="false" />
+          <Property Name="cus_Id" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="staff_Id" />
+          </Key>
+          <Property Name="staff_Id" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="numeric" Precision="11" Scale="0" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <Association Name="FK__Item__staff_Id__3A81B327">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staff_Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="staff_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__cus_Id__3D5E1FD2">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="cus_Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="cus_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__item_Id__3E52440B">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="item_Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="item_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Item__staff_Id__3A81B327" Association="Self.FK__Item__staff_Id__3A81B327">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__cus_Id__3D5E1FD2" Association="Self.FK__Order__cus_Id__3D5E1FD2">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__item_Id__3E52440B" Association="Self.FK__Order__item_Id__3E52440B">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Cus_Id" />
+          </Key>
+          <Property Name="Cus_Id" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Phone" Type="Decimal" Precision="11" Scale="0" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__Order__cus_Id__3D5E1FD2" FromRole="Customer" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="Item_Id" />
+          </Key>
+          <Property Name="Item_Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Staff_Id" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK__Item__staff_Id__3A81B327" FromRole="Item" ToRole="Staff" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__Order__item_Id__3E52440B" FromRole="Item" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Item_Id" />
+            <PropertyRef Name="Cus_Id" />
+          </Key>
+          <Property Name="Item_Id" Type="Int32" Nullable="false" />
+          <Property Name="Cus_Id" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Order__cus_Id__3D5E1FD2" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__Order__item_Id__3E52440B" FromRole="Order" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="Staff_Id" />
+          </Key>
+          <Property Name="Staff_Id" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="Decimal" Precision="11" Scale="0" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__Item__staff_Id__3A81B327" FromRole="Staff" ToRole="Item" />
+        </EntityType>
+        <Association Name="FK__Order__cus_Id__3D5E1FD2">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Cus_Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Cus_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item__staff_Id__3A81B327">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Staff_Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="Staff_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__item_Id__3E52440B">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Item_Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Item_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="Item" EntityType="Self.Item" />
+          <EntitySet Name="Order" EntityType="Self.Order" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" />
+          <AssociationSet Name="FK__Order__cus_Id__3D5E1FD2" Association="Self.FK__Order__cus_Id__3D5E1FD2">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item__staff_Id__3A81B327" Association="Self.FK__Item__staff_Id__3A81B327">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__item_Id__3E52440B" Association="Self.FK__Order__item_Id__3E52440B">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="Model.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Cus_Id" ColumnName="cus_Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Phone" ColumnName="phone" />
+                <ScalarProperty Name="Address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Item">
+            <EntityTypeMapping TypeName="Model.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="Item_Id" ColumnName="item_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Staff_Id" ColumnName="staff_Id" />
+                <ScalarProperty Name="Price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="Model.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Item_Id" ColumnName="item_Id" />
+                <ScalarProperty Name="Cus_Id" ColumnName="cus_Id" />
+                <ScalarProperty Name="Description" ColumnName="description" />
+                <ScalarProperty Name="Date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staff">
+            <EntityTypeMapping TypeName="Model.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="Staff_Id" ColumnName="staff_Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Phone" ColumnName="phone" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

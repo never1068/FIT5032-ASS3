@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+    <div class="jumbotron">
+        <h1>KING OF EATING</h1>
+        <p class="lead">Welcome to the online ordering system!!!</p>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <p><a href="/Account/Register" class="btn btn-primary btn-lg">Register &raquo;</a></p>
+            <p><a href="/Account/Login" class="btn btn-primary btn-lg">Log in &raquo;</a></p>
+        }
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2>VIEW ITEMS</h2>
+            <p>
+                Here you can view all the items.
+            </p>
+            <p><a class="btn btn-default" href="/Items">View &raquo;</a></p>
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="col-md-6">
+                <h2>SELECT ITEMS</h2>
+                <p>You can choose the Item you want to make a booking.</p>
+                <p><a class="btn btn-default" href="/Orders/Create">Booking &raquo;</a></p>
+            </div>
+        }
+
+    </div>

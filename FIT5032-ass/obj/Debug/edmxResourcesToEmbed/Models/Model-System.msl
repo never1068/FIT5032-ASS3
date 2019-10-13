@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Customer">
+      <EntityTypeMapping TypeName="Model.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="Cus_Id" ColumnName="cus_Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Phone" ColumnName="phone" />
+          <ScalarProperty Name="Address" ColumnName="address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Item">
+      <EntityTypeMapping TypeName="Model.Item">
+        <MappingFragment StoreEntitySet="Item">
+          <ScalarProperty Name="Item_Id" ColumnName="item_Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Staff_Id" ColumnName="staff_Id" />
+          <ScalarProperty Name="Price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order">
+      <EntityTypeMapping TypeName="Model.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="Item_Id" ColumnName="item_Id" />
+          <ScalarProperty Name="Cus_Id" ColumnName="cus_Id" />
+          <ScalarProperty Name="Description" ColumnName="description" />
+          <ScalarProperty Name="Date" ColumnName="date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Staff">
+      <EntityTypeMapping TypeName="Model.Staff">
+        <MappingFragment StoreEntitySet="Staff">
+          <ScalarProperty Name="Staff_Id" ColumnName="staff_Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Phone" ColumnName="phone" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
